@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
+import os
 import random
 import logging
 from logging.handlers import TimedRotatingFileHandler
@@ -8,10 +9,19 @@ import threading
 app = Flask(__name__, static_folder='templates/static')
 
 # 配置日志记录
+log_dir = './logs'
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
-handler = TimedRotatingFileHandler('./logs/app.log', when='midnight', interval=1, backupCount=15,
-                                   encoding='utf-8')  # 设置文件编码为 utf-8
+# 检查日志目录是否存在，如果不存在则创建
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
+handler = TimedRotatingFileHandler(
+    filename=os.path.join(log_dir, 'app.log'),
+    when='midnight',
+    interval=1,
+    backupCount=15,
+    encoding='utf-8'
+)
 formatter = logging.Formatter('%(asctime)s - %(message)s')
 handler.setFormatter(formatter)
 logger.addHandler(handler)
