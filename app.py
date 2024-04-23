@@ -10,7 +10,7 @@ app = Flask(__name__, static_folder='templates/static')
 # 配置日志记录
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
-handler = TimedRotatingFileHandler('app.log', when='midnight', interval=1, backupCount=15,
+handler = TimedRotatingFileHandler('./logs/app.log', when='midnight', interval=1, backupCount=15,
                                    encoding='utf-8')  # 设置文件编码为 utf-8
 formatter = logging.Formatter('%(asctime)s - %(message)s')
 handler.setFormatter(formatter)
