@@ -3,11 +3,13 @@ import os
 import random
 import logging
 from logging.handlers import TimedRotatingFileHandler
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import threading
 
 app = Flask(__name__, static_folder='templates/static')
 
+# 设置时区为东八区
+eastern_eight_timezone = timezone(timedelta(hours=8))
 # 配置日志记录
 log_dir = './logs'
 logger = logging.getLogger(__name__)
