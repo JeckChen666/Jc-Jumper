@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validator</title>
+    <link rel="shortcut icon" href="./static/favicon.ico">
+    <link rel="stylesheet" href="./static/bootstrap.min.css">
+    <!--    <link rel="shortcut icon" type="image/png" href="static/favicon.png">-->
+<!--    <link rel="stylesheet" href="https://bootswatch.com/5/sketchy/bootstrap.min.css">-->
+    <style>
+        html, body {
+            height: 100%;
+            background-color: rgba(248, 246, 232, 0.5); /* 设置背景颜色为淡淡的黄色 */
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .btn-submit {
+            animation: pulse 1s infinite alternate;
+        }
+
+        .question {
+            font-size: 24px; /* 设置字体大小为 24 像素 */
+        }
+
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.1);
+            }
+        }
+
+        /* 添加新的样式，用于隐藏其他元素 */
+        .hide-element {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5 mb-4">Validator</h1>
+    <form id="quiz-form" method="post" onsubmit="showLoading()">
+        <div class="mb-3">
+            <label for="answer" class="form-label question">{{ question }}</label>
+            <input type="text" class="form-control" id="answer" name="answer" autocomplete="off" required>
+            <input type="hidden" name="correct_answer" value="{{ correct_answer }}">
+            <input type="hidden" name="question" value="{{ question }}">
+        </div>
+        <button type="submit" class="btn btn-primary btn-submit">提交</button>
+    </form>
+    <div id="loading" class="hide-element"> <!-- 添加 hide-element 类，初始状态隐藏 -->
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                 style="width: 100%"></div>
+        </div>
+        <p class="mt-3">加载中...</p>
+    </div>
+    {% if message %}
+    <div class="alert alert-danger mt-3" role="alert">{{ message }}</div>
+    {% endif %}
+</div>
+
+<script>
+    function showLoading() {
+        // 显示 loading 标志
+        document.getElementById('loading').classList.remove('hide-element');
+        // 隐藏其他元素
+        document.getElementById('quiz-form').classList.add('hide-element');
+    }
+</script>
+</body>
+</html>

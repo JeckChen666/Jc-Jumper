@@ -1,0 +1,11 @@
+version: '3'
+services:
+  flask_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:5000"
+    volumes:
+      - /root/Jc-Jumper:/app
+    restart: unless-stopped
